@@ -1,5 +1,7 @@
 import React from "react";
 
+
+//objeto con datos formulario, funcion manejar cambios input, funcion envia formulario, texto dentro del boton
 export const ContactForm = ({ formData, onChange, onSubmit, buttonLabel }) => {
     return (
         <form onSubmit={onSubmit}>
@@ -8,7 +10,7 @@ export const ContactForm = ({ formData, onChange, onSubmit, buttonLabel }) => {
                 name="name"
                 className="form-control mb-3"
                 placeholder="Name"
-                value={formData.name}
+                value={formData.name || ""}
                 onChange={onChange}
                 required
             />
@@ -17,7 +19,7 @@ export const ContactForm = ({ formData, onChange, onSubmit, buttonLabel }) => {
                 name="address"
                 className="form-control mb-3"
                 placeholder="Address"
-                value={formData.address}
+                value={formData.address || ""}
                 onChange={onChange}
                 required
             />
@@ -26,7 +28,7 @@ export const ContactForm = ({ formData, onChange, onSubmit, buttonLabel }) => {
                 name="email"
                 className="form-control mb-3"
                 placeholder="Email"
-                value={formData.email}
+                value={formData.email || ""}
                 onChange={onChange}
                 required
             />
@@ -35,7 +37,7 @@ export const ContactForm = ({ formData, onChange, onSubmit, buttonLabel }) => {
                 name="phone"
                 className="form-control mb-3"
                 placeholder="Phone"
-                value={formData.phone}
+                value={formData.phone || ""}
                 onChange={onChange}
                 required
             />

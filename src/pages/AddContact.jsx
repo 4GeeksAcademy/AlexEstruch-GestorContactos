@@ -8,12 +8,14 @@ export const AddContact = () => {
   const navigate = useNavigate();
 
   const [contact, setContact] = useState({
-    fullName: "",
+    name: "",
     email: "",
     phone: "",
     address: ""
   });
 
+  //manejar cambios en los inputs del formulario
+  //e.target.name actualizar el campo correspondiente de contact
   const handleChange = (e) => {
     setContact({
       ...contact,
@@ -21,16 +23,18 @@ export const AddContact = () => {
     });
   };
 
+
+  //funcion que envia el formulario
   const handleSubmit = async (e) => {
     e.preventDefault();
-
-    if (!contact.fullName.trim() || !contact.email.trim() || !contact.phone.trim()) {
+    //.trim para quitar los espacios del principio y final, este if valida que no esten vacios los 3 campos
+    if (!contact.name.trim() || !contact.email.trim() || !contact.phone.trim()) {
       alert("Please fill in all required fields.");
       return;
     }
-
+    //creo un objeto con los datos del formulario por la API
     const newContact = {
-      name: contact.fullName,  // usa 'full_name' para que coincida con ContactCard
+      name: contact.name,  // usa 'full_name' para que coincida con ContactCard
       email: contact.email,
       phone: contact.phone,
       address: contact.address,
@@ -38,24 +42,25 @@ export const AddContact = () => {
     };
 
     console.log("Sending new contact:", JSON.stringify(newContact));
-
+    //solicitud POST a la API con el fetch para crear un nuevo contacto
     try {
       const res = await fetch("https://playground.4geeks.com/contact/agendas/alexestruch/contacts", {
         method: "POST",
         headers: { "Content-Type": "application/json" },
         body: JSON.stringify(newContact)
       });
-
+      
+      //mostrar en consola el error si no es posible crear el contacto
       if (!res.ok) {
         const errorData = await res.json();
         console.error("API error response:", errorData);
         throw new Error(`Failed to create contact: ${JSON.stringify(errorData)}`);
       }
 
-      // Nuevo contacto creado
+      // Nuevo contacto creado, convierte la respuesta del POST en JSON y lo guarda
       const createdContact = await res.json();
 
-      // Ahora recargamos la lista completa
+      // Ahora recargamos la lista completa con funcion GET para obtener la lista completa actualizada
       const resList = await fetch("https://playground.4geeks.com/contact/agendas/alexestruch/contacts");
       if (!resList.ok) throw new Error("Failed to fetch updated contacts list");
 
@@ -75,11 +80,16 @@ export const AddContact = () => {
     <div className="container mt-5">
       <h2>Add Contact</h2>
       <ContactForm
-        formData={formData}
+        formData={contact}
         onChange={handleChange}
         onSubmit={handleSubmit}
         buttonLabel="Save Contact"
       />
+      <div className="mt-3">
+        <Link to="/">
+          or get back to Contacts
+        </Link>
+      </div>
     </div>
   );
 };

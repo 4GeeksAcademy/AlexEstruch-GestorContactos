@@ -1,5 +1,6 @@
 import { Link } from "react-router-dom";
 
+//defino una imagen por defecto, si se quisiera modificar la foto habría que añadir una función
 const imagenPorDefecto = "https://img.freepik.com/vector-premium/ilustracion-plana-vectorial-escala-grises-icono-perfil-usuario-avatar-persona-imagen-perfil-silueta-genero-neutral-apto-perfiles-redes-sociales-iconos-protectores-pantalla-como-plantillax9xa_719432-2210.jpg?semt=ais_hybrid&w=740";
 
 export const ContactCard = ({ contact, onDelete }) => {
